@@ -523,7 +523,7 @@ function App() {
                     }`}>
                       <div className="flex justify-between items-center mb-4">
                         <h3 className={`text-sm font-semibold transition-all duration-300 ${
-                          theme === 'dark' ? 'text-zinc-100' : 'text-gray-700'
+                          theme === 'dark' ? 'text-white' : 'text-gray-700'
                         }`}>
                           {filteredBusinesses.length} Qualified Leads
                         </h3>
