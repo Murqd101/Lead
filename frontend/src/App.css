@@ -1,37 +1,3 @@
-/* Logo shimmer animation - text-only approach */
-.logo-shimmer {
-  background: linear-gradient(
-    90deg,
-    currentColor 25%,
-    rgba(255, 255, 255, 0.8) 50%,
-    currentColor 75%
-  );
-  background-size: 200% 100%;
-  background-clip: text;
-  -webkit-background-clip: text;
-  animation: shimmer-text 3s ease-in-out infinite;
-  animation-delay: 2s;
-}
-
-.dark .logo-shimmer {
-  background: linear-gradient(
-    90deg,
-    currentColor 25%,
-    rgba(255, 255, 255, 0.6) 50%,
-    currentColor 75%
-  );
-  background-size: 200% 100%;
-}
-
-@keyframes shimmer-text {
-  0% {
-    background-position: -200% 0;
-  }
-  100% {
-    background-position: 200% 0;
-  }
-}
-
 /* Clean, theme-matching design with visible sliders */
 
 /* Smooth transitions */
