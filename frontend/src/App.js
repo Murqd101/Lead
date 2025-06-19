@@ -353,7 +353,7 @@ function App() {
                         onClick={() => setShowCustomSearch(!showCustomSearch)}
                         className={`text-xs font-medium transition-colors duration-200 ${
                           theme === 'dark'
-                            ? 'text-gray-400 hover:text-gray-300'
+                            ? 'text-zinc-400 hover:text-zinc-300'
                             : 'text-gray-500 hover:text-gray-700'
                         }`}
                       >
