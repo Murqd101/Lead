@@ -531,7 +531,7 @@ function App() {
                           onClick={exportToCSV}
                           className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:scale-105 ${
                             theme === 'dark'
-                              ? 'bg-zinc-600 text-zinc-100 hover:bg-zinc-500'
+                              ? 'bg-white text-zinc-900 hover:bg-gray-100'
                               : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
                           }`}
                         >
