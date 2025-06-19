@@ -278,10 +278,10 @@ function App() {
                   className={`px-4 py-2 text-sm font-medium transition-all duration-200 rounded-lg ${
                     activeTab === 'favorites' 
                       ? theme === 'dark'
-                        ? 'text-zinc-100 bg-zinc-700'
+                        ? 'text-white bg-zinc-700'
                         : 'text-gray-900 bg-gray-100'
                       : theme === 'dark'
-                        ? 'text-zinc-400 hover:text-zinc-100 hover:bg-zinc-700'
+                        ? 'text-zinc-400 hover:text-white hover:bg-zinc-700'
                         : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
                   }`}
                 >
