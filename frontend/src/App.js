@@ -245,7 +245,7 @@ function App() {
   return (
     <div className={`min-h-screen transition-all duration-300 ${
       theme === 'dark' 
-        ? 'bg-gray-700' // Discord dark background
+        ? 'bg-zinc-900' // Match dark map background
         : 'bg-gray-50'  // Light background
     }`}>
       {/* Header - Full Discord Theme */}
