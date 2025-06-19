@@ -436,7 +436,7 @@ function App() {
                     disabled={loading}
                     className={`w-full py-3 px-6 rounded-lg font-semibold transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed search-button ${
                       theme === 'dark'
-                        ? 'bg-gray-100 text-gray-900 hover:bg-gray-200'
+                        ? 'bg-zinc-100 text-zinc-900 hover:bg-zinc-200'
                         : 'bg-gray-900 text-white hover:bg-gray-800'
                     }`}
                   >
