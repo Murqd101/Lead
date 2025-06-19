@@ -1,11 +1,11 @@
-/* Discord-style theme with proper colors throughout */
+/* Dark map-matching theme with exact Carto dark colors */
 
 /* Smooth transitions */
 * {
   transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
 }
 
-/* Discord-style scrollbar */
+/* Map-matching scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -15,7 +15,7 @@
 }
 
 .dark ::-webkit-scrollbar-track {
-  background: #374151;
+  background: #27272a; /* Match dark map background */
 }
 
 ::-webkit-scrollbar-thumb {
@@ -24,7 +24,7 @@
 }
 
 .dark ::-webkit-scrollbar-thumb {
-  background: #6b7280;
+  background: #52525b; /* Match dark map elements */
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -32,7 +32,7 @@
 }
 
 .dark ::-webkit-scrollbar-thumb:hover {
-  background: #9ca3af;
+  background: #71717a;
 }
 
 /* Range slider styling */
@@ -51,7 +51,7 @@
 }
 
 .dark .range-slider::-webkit-slider-track {
-  background: #6b7280;
+  background: #52525b; /* Match dark map */
 }
 
 .range-slider::-webkit-slider-thumb {
@@ -68,8 +68,8 @@
 }
 
 .dark .range-slider::-webkit-slider-thumb {
-  background: #d1d5db;
-  border: 2px solid #374151;
+  background: #f4f4f5;
+  border: 2px solid #27272a;
 }
 
 .range-slider::-webkit-slider-thumb:hover {
@@ -97,8 +97,8 @@
 }
 
 .dark .professional-checkbox {
-  background-color: #6b7280;
-  border-color: #4b5563;
+  background-color: #52525b;
+  border-color: #3f3f46;
 }
 
 .professional-checkbox::before {
@@ -113,7 +113,7 @@
 }
 
 .dark .professional-checkbox::before {
-  box-shadow: inset 1em 1em #f3f4f6;
+  box-shadow: inset 1em 1em #f4f4f5;
 }
 
 .professional-checkbox:checked::before {
@@ -164,8 +164,8 @@
 }
 
 .dark .map-loading-spinner {
-  border: 3px solid #6b7280;
-  border-top: 3px solid #d1d5db;
+  border: 3px solid #52525b;
+  border-top: 3px solid #f4f4f5;
 }
 
 @keyframes spin {
@@ -204,14 +204,14 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
-/* Leaflet map Discord theme */
+/* Leaflet map exact color matching */
 .leaflet-container {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   background: #f8fafc;
 }
 
 .dark .leaflet-container {
-  background: #374151;
+  background: #1a1a1a; /* Exact Carto dark background */
 }
 
 /* Professional popup styling */
@@ -264,14 +264,14 @@
 }
 
 .dark .leaflet-control-zoom a {
-  color: #d1d5db !important;
-  border: 1px solid #6b7280 !important;
-  background: rgba(55, 65, 81, 0.9) !important;
+  color: #f4f4f5 !important;
+  border: 1px solid #52525b !important;
+  background: rgba(39, 39, 42, 0.9) !important;
 }
 
 .dark .leaflet-control-zoom a:hover {
-  background: #6b7280 !important;
-  color: #f3f4f6 !important;
+  background: #52525b !important;
+  color: #ffffff !important;
 }
 
 /* Focus states */
@@ -316,8 +316,8 @@ body {
 }
 
 .dark ::selection {
-  background-color: #6b7280;
-  color: #f3f4f6;
+  background-color: #52525b;
+  color: #f4f4f5;
 }
 
 /* Mobile responsive */
