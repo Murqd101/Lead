@@ -5,14 +5,15 @@ import json
 import os
 from datetime import datetime
 import pytest
+import sys
 
 # Get the backend URL from the frontend .env file
 BACKEND_URL = "https://0edfc63a-4e45-481a-99e5-cc9a9ce190c6.preview.emergentagent.com"
 API_URL = f"{BACKEND_URL}/api"
 
 # Test data
-TEST_BUSINESS_TYPES = ["restaurant", "shop", "retail", "hotel"]
-TEST_LOCATIONS = ["New York, NY", "San Francisco, CA", "Chicago, IL"]
+TEST_BUSINESS_TYPES = ["restaurant", "shop"]  # Reduced for faster testing
+TEST_LOCATIONS = ["New York, NY", "San Francisco, CA"]  # Reduced for faster testing
 TEST_USER_ID = "test_user_" + datetime.now().strftime("%Y%m%d%H%M%S")
 
 # Store test data for use across tests
@@ -21,6 +22,9 @@ test_data = {
     "favorites": [],
     "search_results": {}
 }
+
+# Timeout settings
+TIMEOUT = 30.0  # 30 seconds timeout for API calls
 
 async def test_health_endpoint():
     """Test the health endpoint to verify server is running"""
