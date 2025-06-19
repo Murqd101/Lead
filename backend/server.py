@@ -11,12 +11,13 @@ import json
 from datetime import datetime
 import logging
 import urllib.parse
+import re
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-app = FastAPI(title="Lead Generation API", version="1.0.0")
+app = FastAPI(title="Prospect Lead Intelligence API", version="1.0.0")
 
 # CORS middleware
 app.add_middleware(
@@ -70,6 +71,42 @@ class LeadFilters(BaseModel):
     has_phone: Optional[bool] = None
     has_email: Optional[bool] = None
 
+# AI-powered business type mapping for custom search
+def map_custom_search_to_osm_tags(search_term: str) -> str:
+    """Map custom search terms to OSM tags using pattern matching"""
+    search_lower = search_term.lower()
+    
+    # AI/Tech companies
+    if any(term in search_lower for term in ['ai', 'artificial intelligence', 'tech', 'software', 'saas', 'startup']):
+        return 'office'
+    
+    # Healthcare
+    if any(term in search_lower for term in ['dental', 'doctor', 'clinic', 'medical', 'healthcare', 'dentist']):
+        return 'amenity=clinic'
+    
+    # Legal
+    if any(term in search_lower for term in ['law', 'lawyer', 'attorney', 'legal']):
+        return 'office=lawyer'
+    
+    # Financial
+    if any(term in search_lower for term in ['accounting', 'financial', 'insurance', 'bank']):
+        return 'office=financial'
+    
+    # Real Estate
+    if any(term in search_lower for term in ['real estate', 'realtor', 'property']):
+        return 'office=estate_agent'
+    
+    # Marketing/Consulting
+    if any(term in search_lower for term in ['marketing', 'advertising', 'consulting', 'agency']):
+        return 'office'
+    
+    # Construction/Contractors
+    if any(term in search_lower for term in ['construction', 'contractor', 'plumber', 'electrician', 'hvac']):
+        return 'craft'
+    
+    # Default to office for business searches
+    return 'office'
+
 # Utility functions
 async def geocode_location(location: str) -> tuple:
     """Geocode location using Nominatim (OpenStreetMap)"""
@@ -78,7 +115,7 @@ async def geocode_location(location: str) -> tuple:
         url = f"https://nominatim.openstreetmap.org/search?format=json&q={encoded_location}&limit=1"
         
         async with httpx.AsyncClient() as client:
-            response = await client.get(url, headers={"User-Agent": "LeadGen App 1.0"})
+            response = await client.get(url, headers={"User-Agent": "Prospect Lead Intelligence 1.0"})
             if response.status_code == 200:
                 data = response.json()
                 if data:
@@ -90,8 +127,24 @@ async def geocode_location(location: str) -> tuple:
 async def fetch_businesses_from_overpass(lat: float, lon: float, radius: float, business_type: str) -> List[Dict]:
     """Fetch businesses from OpenStreetMap using Overpass API"""
     try:
-        # Map business types to OSM tags
+        # Enhanced business type mapping for lead generation
         osm_tags = {
+            'saas': 'office',
+            'software': 'office',
+            'tech': 'office',
+            'startup': 'office',
+            'fintech': 'office=financial',
+            'healthcare': 'amenity=clinic',
+            'dental': 'amenity=dentist',
+            'medical': 'amenity=clinic',
+            'legal': 'office=lawyer',
+            'law': 'office=lawyer',
+            'accounting': 'office=accountant',
+            'insurance': 'office=insurance',
+            'realestate': 'office=estate_agent',
+            'marketing': 'office',
+            'consulting': 'office',
+            'construction': 'craft',
             'restaurant': 'amenity=restaurant',
             'shop': 'shop',
             'office': 'office',
@@ -99,13 +152,14 @@ async def fetch_businesses_from_overpass(lat: float, lon: float, radius: float, 
             'gym': 'leisure=fitness_centre',
             'beauty': 'shop=beauty',
             'automotive': 'shop=car_repair',
-            'medical': 'amenity=clinic',
             'retail': 'shop',
             'service': 'craft',
         }
         
-        # Default to general shop/amenity search if type not found
-        tag_query = osm_tags.get(business_type.lower(), 'shop')
+        # Use custom mapping for AI-powered search
+        tag_query = osm_tags.get(business_type.lower())
+        if not tag_query:
+            tag_query = map_custom_search_to_osm_tags(business_type)
         
         # Build Overpass query
         overpass_query = f"""
@@ -152,73 +206,103 @@ async def fetch_company_info(company_name: str) -> Dict:
     return {}
 
 def calculate_lead_quality_score(business_data: Dict, company_info: Dict) -> int:
-    """Calculate lead quality score based on available data"""
-    score = 50  # Base score
+    """Enhanced lead quality scoring for B2B lead generation"""
+    score = 40  # Base score (lower for more selective scoring)
     
-    # Bonus for having contact information
+    # Contact information scoring (higher weight for lead generation)
     if business_data.get('phone'):
-        score += 15
+        score += 20  # Phone is crucial for outreach
     if business_data.get('website'):
-        score += 20
+        score += 25  # Website indicates established business
     if business_data.get('email'):
-        score += 15
+        score += 20  # Direct email contact
     
-    # Bonus for complete address
-    if len(business_data.get('address', '')) > 20:
+    # Address completeness
+    address = business_data.get('address', '')
+    if len(address) > 30:  # Detailed address
+        score += 10
+    elif len(address) > 10:  # Basic address
+        score += 5
+    
+    # Company verification bonus (important for B2B)
+    if company_info.get('status') == 'Active':
+        score += 15
+    elif company_info.get('name'):
+        score += 10  # Some company info found
+    
+    # Business type quality for lead generation
+    business_type = business_data.get('business_type', '').lower()
+    high_value_types = ['saas', 'software', 'tech', 'legal', 'medical', 'dental', 'accounting', 'consulting', 'marketing', 'fintech']
+    if business_type in high_value_types:
         score += 10
     
-    # Company verification bonus
-    if company_info.get('status') == 'Active':
-        score += 20
-    
-    # Penalty for missing key info
-    if not business_data.get('phone') and not business_data.get('website'):
-        score -= 20
+    # Penalty for incomplete profiles
+    if not business_data.get('phone') and not business_data.get('website') and not business_data.get('email'):
+        score -= 30  # Harsh penalty for no contact info
     
     return max(0, min(100, score))
 
 def determine_lead_status(quality_score: int) -> str:
-    """Determine lead status based on quality score"""
-    if quality_score >= 80:
-        return "hot"
-    elif quality_score >= 60:
-        return "warm"
-    elif quality_score >= 40:
-        return "cold"
+    """Determine lead status with higher thresholds for B2B"""
+    if quality_score >= 85:
+        return "hot"      # Premium leads with full contact info
+    elif quality_score >= 70:
+        return "warm"     # Good leads with some contact info
+    elif quality_score >= 50:
+        return "cold"     # Basic leads, needs more qualification
     else:
-        return "unqualified"
+        return "unqualified"  # Poor quality leads
 
 async def process_osm_business(element: Dict, business_type: str) -> Optional[Dict]:
     """Process OSM element into business data"""
     try:
         tags = element.get('tags', {})
-        name = tags.get('name', tags.get('brand', 'Unknown Business'))
+        name = tags.get('name', tags.get('brand', tags.get('operator', 'Unknown Business')))
         
-        if not name or name == 'Unknown Business':
+        # Skip unnamed businesses
+        if not name or name == 'Unknown Business' or len(name) < 2:
+            return None
+        
+        # Skip residential and non-business entries
+        if any(skip_term in name.lower() for skip_term in ['house', 'home', 'apartment', 'residence']):
             return None
         
         # Get coordinates
         if element['type'] == 'node':
             lat, lon = element['lat'], element['lon']
         else:
-            lat, lon = element.get('center', {}).get('lat'), element.get('center', {}).get('lon')
+            center = element.get('center', {})
+            lat, lon = center.get('lat'), center.get('lon')
         
         if not lat or not lon:
             return None
         
-        # Build address
+        # Build comprehensive address
         address_parts = []
-        for key in ['addr:housenumber', 'addr:street', 'addr:city', 'addr:postcode']:
+        for key in ['addr:housenumber', 'addr:street', 'addr:city', 'addr:state', 'addr:postcode']:
             if tags.get(key):
                 address_parts.append(tags[key])
-        address = ', '.join(address_parts) if address_parts else f"Near {lat:.4f}, {lon:.4f}"
         
-        # Extract contact info
-        phone = tags.get('phone', tags.get('contact:phone'))
-        website = tags.get('website', tags.get('contact:website'))
+        if not address_parts:
+            # Fallback to location description
+            address = f"Near {lat:.4f}, {lon:.4f}"
+        else:
+            address = ', '.join(address_parts)
+        
+        # Extract enhanced contact info
+        phone = tags.get('phone', tags.get('contact:phone', tags.get('telephone')))
+        website = tags.get('website', tags.get('contact:website', tags.get('url')))
         email = tags.get('email', tags.get('contact:email'))
         
-        # Get company info for verification
+        # Clean phone number
+        if phone:
+            phone = re.sub(r'[^\d+\-\(\)\s]', '', phone)
+        
+        # Clean website URL
+        if website and not website.startswith(('http://', 'https://')):
+            website = 'https://' + website
+        
+        # Get company info for verification (important for B2B leads)
         company_info = await fetch_company_info(name)
         
         business_data = {
@@ -257,11 +341,11 @@ async def process_osm_business(element: Dict, business_type: str) -> Optional[Di
 # API Routes
 @app.get("/api/health")
 async def health_check():
-    return {"status": "healthy", "message": "Lead Generation API is running"}
+    return {"status": "healthy", "message": "Prospect Lead Intelligence API is running"}
 
 @app.post("/api/search-businesses")
 async def search_businesses(search: BusinessSearch):
-    """Search for businesses using OpenStreetMap data"""
+    """Search for businesses using OpenStreetMap data with AI-powered search understanding"""
     try:
         # Geocode location if coordinates not provided
         if not search.lat or not search.lon:
@@ -274,16 +358,27 @@ async def search_businesses(search: BusinessSearch):
         # Fetch businesses from Overpass API
         osm_elements = await fetch_businesses_from_overpass(lat, lon, search.radius, search.business_type)
         
-        # Process businesses
+        # Process businesses with enhanced filtering
         businesses = []
-        for element in osm_elements[:50]:  # Limit to 50 results
+        processed_names = set()  # Avoid duplicates
+        
+        for element in osm_elements[:100]:  # Process more elements but filter better
             business = await process_osm_business(element, search.business_type)
-            if business:
-                businesses.append(business)
+            if business and business['name'] not in processed_names:
+                # Only include businesses with reasonable quality scores for lead generation
+                if business['quality_score'] >= 30:  # Minimum threshold
+                    businesses.append(business)
+                    processed_names.add(business['name'])
+        
+        # Sort by quality score (highest first)
+        businesses.sort(key=lambda x: x['quality_score'], reverse=True)
+        
+        # Limit results to top prospects
+        businesses = businesses[:50]
         
         # Store in database
         if businesses:
-            # Clear old results for this search
+            # Clear old results for this search type and location
             businesses_collection.delete_many({
                 "business_type": search.business_type,
                 "last_updated": {"$lt": datetime.now()}
@@ -301,7 +396,7 @@ async def search_businesses(search: BusinessSearch):
             "businesses": businesses,
             "total": len(businesses),
             "search_location": {"lat": lat, "lon": lon},
-            "message": f"Found {len(businesses)} qualified leads"
+            "message": f"Found {len(businesses)} qualified prospects for {search.business_type} in {search.location}"
         }
         
     except Exception as e:
@@ -407,22 +502,26 @@ async def export_businesses_csv(
         
         businesses = list(businesses_collection.find(query, {"_id": 0}))
         
-        # Convert to CSV format
-        csv_headers = ["Name", "Type", "Address", "Phone", "Website", "Email", "Quality Score", "Lead Status", "Latitude", "Longitude"]
+        # Convert to CSV format with B2B focus
+        csv_headers = [
+            "Company Name", "Industry", "Address", "Phone", "Website", "Email", 
+            "Quality Score", "Lead Priority", "Latitude", "Longitude", "Last Updated"
+        ]
         csv_rows = []
         
         for business in businesses:
             row = [
                 business.get("name", ""),
-                business.get("business_type", ""),
+                business.get("business_type", "").title(),
                 business.get("address", ""),
                 business.get("phone", ""),
                 business.get("website", ""),
                 business.get("email", ""),
                 business.get("quality_score", 0),
-                business.get("lead_status", ""),
+                business.get("lead_status", "").title(),
                 business.get("lat", ""),
-                business.get("lon", "")
+                business.get("lon", ""),
+                business.get("last_updated", "").strftime("%Y-%m-%d %H:%M:%S") if business.get("last_updated") else ""
             ]
             csv_rows.append(row)
         
@@ -430,7 +529,7 @@ async def export_businesses_csv(
             "headers": csv_headers,
             "rows": csv_rows,
             "total": len(csv_rows),
-            "filename": f"leads_{business_type or 'all'}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv"
+            "filename": f"prospects_{business_type or 'all'}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv"
         }
         
     except Exception as e:
@@ -439,19 +538,31 @@ async def export_businesses_csv(
 
 @app.get("/api/business-types")
 async def get_business_types():
-    """Get available business types for search"""
+    """Get available business types focused on lead generation"""
     return {
         "business_types": [
-            {"value": "restaurant", "label": "Restaurants"},
-            {"value": "retail", "label": "Retail Stores"},
-            {"value": "office", "label": "Offices"},
-            {"value": "hotel", "label": "Hotels"},
-            {"value": "gym", "label": "Gyms & Fitness"},
-            {"value": "beauty", "label": "Beauty & Wellness"},
-            {"value": "automotive", "label": "Automotive"},
-            {"value": "medical", "label": "Medical & Healthcare"},
-            {"value": "service", "label": "Professional Services"},
-            {"value": "shop", "label": "General Shops"}
+            # High-value B2B lead generation targets
+            {"value": "saas", "label": "🚀 SaaS & Software Companies"},
+            {"value": "tech", "label": "💻 Technology Startups"},
+            {"value": "fintech", "label": "💳 Fintech & Financial Services"},
+            {"value": "legal", "label": "⚖️ Law Firms & Legal Services"},
+            {"value": "medical", "label": "🏥 Medical Practices"},
+            {"value": "dental", "label": "🦷 Dental Clinics"},
+            {"value": "accounting", "label": "📊 Accounting & CPA Firms"},
+            {"value": "consulting", "label": "💼 Business Consulting"},
+            {"value": "marketing", "label": "📈 Marketing Agencies"},
+            {"value": "realestate", "label": "🏠 Real Estate Agencies"},
+            {"value": "insurance", "label": "🛡️ Insurance Agencies"},
+            {"value": "construction", "label": "🔨 Construction Companies"},
+            
+            # Traditional business types (still valuable)
+            {"value": "restaurant", "label": "🍽️ Restaurants"},
+            {"value": "retail", "label": "🛍️ Retail Stores"},
+            {"value": "office", "label": "🏢 General Offices"},
+            {"value": "hotel", "label": "🏨 Hotels & Hospitality"},
+            {"value": "gym", "label": "💪 Gyms & Fitness"},
+            {"value": "beauty", "label": "💄 Beauty & Wellness"},
+            {"value": "automotive", "label": "🚗 Automotive Services"}
         ]
     }
 
