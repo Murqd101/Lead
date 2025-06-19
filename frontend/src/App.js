@@ -331,10 +331,10 @@ function App() {
                       <button
                         type="button"
                         onClick={() => setShowCustomSearch(!showCustomSearch)}
-                        className={`text-xs font-medium transition-colors duration-200 ${
+                        className={`text-xs font-medium px-3 py-1 rounded-full transition-all duration-200 ${
                           theme === 'dark'
-                            ? 'text-zinc-400 hover:text-zinc-300'
-                            : 'text-gray-500 hover:text-gray-700'
+                            ? 'text-zinc-400 hover:text-zinc-300 hover:bg-zinc-700'
+                            : 'text-gray-500 hover:text-gray-700 hover:bg-gray-100'
                         }`}
                       >
                         {showCustomSearch ? 'Presets' : 'Custom'}
