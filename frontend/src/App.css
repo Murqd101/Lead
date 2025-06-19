@@ -25,9 +25,10 @@
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(255, 255, 255, 0.08),
+    rgba(255, 255, 255, 0.02),
     transparent
   );
+  mix-blend-mode: overlay;
 }
 
 @keyframes shimmer {
