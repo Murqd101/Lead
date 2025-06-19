@@ -438,42 +438,48 @@ async def run_all_tests():
     """Run all tests and return results"""
     test_results = {}
     
-    # Test FastAPI Server Setup
-    test_results["FastAPI Server Setup"] = await test_health_endpoint()
-    
-    # Test Business Search API
-    test_results["Business Search API"] = await test_business_search_api()
-    
-    # Test External API Integration
-    test_results["External API Integration"] = await test_external_api_integration()
-    
-    # Test Lead Quality Scoring System
-    test_results["Lead Quality Scoring System"] = await test_lead_quality_scoring()
-    
-    # Test Favorites Management API
-    test_results["Favorites Management API"] = await test_favorites_api()
-    
-    # Test CSV Export API
-    test_results["CSV Export API"] = await test_csv_export_api()
-    
-    # Print summary
-    print("\n" + "="*80)
-    print("TEST RESULTS SUMMARY")
-    print("="*80)
-    
-    all_passed = True
-    for test_name, result in test_results.items():
-        status = "✅ PASSED" if result else "❌ FAILED"
-        if not result:
-            all_passed = False
-        print(f"{test_name}: {status}")
-    
-    print("\n" + "="*80)
-    overall_status = "✅ ALL TESTS PASSED" if all_passed else "❌ SOME TESTS FAILED"
-    print(f"OVERALL STATUS: {overall_status}")
-    print("="*80)
-    
-    return test_results
+    try:
+        # Test FastAPI Server Setup
+        test_results["FastAPI Server Setup"] = await test_health_endpoint()
+        
+        # Test Business Search API
+        test_results["Business Search API"] = await test_business_search_api()
+        
+        # Test External API Integration
+        test_results["External API Integration"] = await test_external_api_integration()
+        
+        # Test Lead Quality Scoring System
+        test_results["Lead Quality Scoring System"] = await test_lead_quality_scoring()
+        
+        # Test Favorites Management API
+        test_results["Favorites Management API"] = await test_favorites_api()
+        
+        # Test CSV Export API
+        test_results["CSV Export API"] = await test_csv_export_api()
+        
+        # Print summary
+        print("\n" + "="*80)
+        print("TEST RESULTS SUMMARY")
+        print("="*80)
+        
+        all_passed = True
+        for test_name, result in test_results.items():
+            status = "✅ PASSED" if result else "❌ FAILED"
+            if not result:
+                all_passed = False
+            print(f"{test_name}: {status}")
+        
+        print("\n" + "="*80)
+        overall_status = "✅ ALL TESTS PASSED" if all_passed else "❌ SOME TESTS FAILED"
+        print(f"OVERALL STATUS: {overall_status}")
+        print("="*80)
+        
+        return test_results
+    except Exception as e:
+        print(f"\n❌ ERROR DURING TESTING: {str(e)}")
+        import traceback
+        traceback.print_exc()
+        return test_results
 
 if __name__ == "__main__":
     asyncio.run(run_all_tests())
