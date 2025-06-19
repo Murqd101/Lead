@@ -206,21 +206,7 @@ function App() {
   };
 
   const getLeadIcon = (leadStatus) => {
-    if (theme === 'dark') {
-      switch (leadStatus) {
-        case 'hot': return darkModeIcon;
-        case 'warm': return darkModeIcon;
-        case 'cold': return darkModeIcon;
-        default: return darkModeIcon;
-      }
-    } else {
-      switch (leadStatus) {
-        case 'hot': return lightModeIcon;
-        case 'warm': return lightModeIcon;
-        case 'cold': return lightModeIcon;
-        default: return lightModeIcon;
-      }
-    }
+    return theme === 'dark' ? darkModeIcon : lightModeIcon;
   };
 
   const getQualityColor = (score) => {
