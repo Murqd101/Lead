@@ -293,7 +293,7 @@ function App() {
                 onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
                 className={`p-2 rounded-lg transition-all duration-200 hover:scale-105 ${
                   theme === 'dark'
-                    ? 'bg-zinc-700 text-zinc-400 hover:text-zinc-100'
+                    ? 'bg-zinc-700 text-zinc-400 hover:text-white'
                     : 'bg-gray-100 text-gray-600 hover:text-gray-900'
                 }`}
               >
