@@ -330,10 +330,10 @@ function App() {
       </header>
 
       <div className="flex h-screen pt-16">
-        {/* Sidebar - Full Discord Theme */}
+        {/* Sidebar - Match Dark Map Colors */}
         <div className={`w-96 shadow-lg border-r overflow-y-auto transition-all duration-300 ${
           theme === 'dark'
-            ? 'bg-gray-800 border-gray-600' // Discord sidebar
+            ? 'bg-zinc-800 border-zinc-700' // Match dark map sidebar
             : 'bg-white border-gray-200'    // Light sidebar
         }`}>
           <div className="p-8">
