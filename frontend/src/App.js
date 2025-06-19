@@ -208,17 +208,17 @@ function App() {
   const getLeadIcon = (leadStatus) => {
     if (theme === 'dark') {
       switch (leadStatus) {
-        case 'hot': return hotLeadIconDark;
-        case 'warm': return warmLeadIconDark;
-        case 'cold': return coldLeadIconDark;
-        default: return coldLeadIconDark;
+        case 'hot': return darkModeIcon;
+        case 'warm': return darkModeIcon;
+        case 'cold': return darkModeIcon;
+        default: return darkModeIcon;
       }
     } else {
       switch (leadStatus) {
-        case 'hot': return hotLeadIcon;
-        case 'warm': return warmLeadIcon;
-        case 'cold': return coldLeadIcon;
-        default: return coldLeadIcon;
+        case 'hot': return lightModeIcon;
+        case 'warm': return lightModeIcon;
+        case 'cold': return lightModeIcon;
+        default: return lightModeIcon;
       }
     }
   };
