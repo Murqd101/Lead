@@ -392,7 +392,7 @@ function App() {
                   
                   <div>
                     <label className={`block text-sm font-semibold mb-3 transition-all duration-300 ${
-                      theme === 'dark' ? 'text-gray-100' : 'text-gray-900'
+                      theme === 'dark' ? 'text-zinc-100' : 'text-gray-900'
                     }`}>
                       Location
                     </label>
