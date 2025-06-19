@@ -248,10 +248,10 @@ function App() {
         ? 'bg-zinc-900' // Match dark map background
         : 'bg-gray-50'  // Light background
     }`}>
-      {/* Header - Full Discord Theme */}
+      {/* Header - Match Dark Map Colors */}
       <header className={`shadow-sm border-b transition-all duration-300 ${
         theme === 'dark'
-          ? 'bg-gray-800 border-gray-600' // Discord darker header
+          ? 'bg-zinc-800 border-zinc-700' // Match dark map header
           : 'bg-white border-gray-200'    // Light header
       }`}>
         <div className="max-w-7xl mx-auto px-8">
