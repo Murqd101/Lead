@@ -21,14 +21,9 @@
   animation-delay: 2s;
 }
 
+/* Remove shimmer entirely for dark mode */
 .dark .logo-shimmer::before {
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.02),
-    transparent
-  );
-  mix-blend-mode: overlay;
+  display: none;
 }
 
 @keyframes shimmer {
