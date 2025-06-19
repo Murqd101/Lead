@@ -1,30 +1,62 @@
-/* Professional, clean styles for Prospect lead intelligence app */
+/* Professional Discord-like theme with subtle effects */
+
+/* Discord color palette */
+:root {
+  --discord-dark: #36393f;
+  --discord-darker: #2f3136;
+  --discord-light: #40444b;
+  --discord-border: #202225;
+}
+
+.dark {
+  --discord-dark: #36393f;
+  --discord-darker: #2f3136;
+  --discord-light: #40444b;
+  --discord-border: #202225;
+}
 
 /* Smooth transitions */
 * {
-  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Discord-like background colors */
+.bg-discord-dark {
+  background-color: var(--discord-dark);
+}
+
+.bg-discord-darker {
+  background-color: var(--discord-darker);
+}
+
+.bg-discord-light {
+  background-color: var(--discord-light);
+}
+
+.border-discord-border {
+  border-color: var(--discord-border);
 }
 
 /* Professional scrollbar design */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: #f8fafc;
 }
 
 .dark ::-webkit-scrollbar-track {
-  background: #1e293b;
+  background: var(--discord-darker);
 }
 
 ::-webkit-scrollbar-thumb {
   background: #cbd5e1;
-  border-radius: 3px;
+  border-radius: 4px;
 }
 
 .dark ::-webkit-scrollbar-thumb {
-  background: #475569;
+  background: var(--discord-light);
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -32,73 +64,195 @@
 }
 
 .dark ::-webkit-scrollbar-thumb:hover {
-  background: #64748b;
+  background: #5a5f66;
 }
 
-/* Clean range slider styling */
+/* Professional range slider */
 .range-slider {
   -webkit-appearance: none;
   appearance: none;
   background: transparent;
   cursor: pointer;
+  height: 6px;
 }
 
 .range-slider::-webkit-slider-track {
   background: #e2e8f0;
-  height: 8px;
-  border-radius: 4px;
+  height: 6px;
+  border-radius: 3px;
 }
 
 .dark .range-slider::-webkit-slider-track {
-  background: #374151;
+  background: var(--discord-light);
 }
 
 .range-slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  background: #1e293b;
-  height: 20px;
-  width: 20px;
+  background: #374151;
+  height: 18px;
+  width: 18px;
   border-radius: 50%;
   cursor: pointer;
   border: 2px solid #ffffff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
 }
 
 .dark .range-slider::-webkit-slider-thumb {
-  background: #ffffff;
-  border: 2px solid #1e293b;
+  background: #9ca3af;
+  border: 2px solid var(--discord-darker);
 }
 
 .range-slider::-webkit-slider-thumb:hover {
   transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.range-slider::-moz-range-thumb {
-  background: #1e293b;
-  height: 20px;
-  width: 20px;
-  border-radius: 50%;
+/* Professional checkbox */
+.professional-checkbox {
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: #fff;
+  margin: 0;
+  font: inherit;
+  color: currentColor;
+  width: 1rem;
+  height: 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.25rem;
+  transform: translateY(-0.075em);
+  display: grid;
+  place-content: center;
   cursor: pointer;
-  border: 2px solid #ffffff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
 }
 
-.dark .range-slider::-moz-range-thumb {
-  background: #ffffff;
-  border: 2px solid #1e293b;
+.dark .professional-checkbox {
+  background-color: var(--discord-light);
+  border-color: var(--discord-border);
+}
+
+.professional-checkbox::before {
+  content: "";
+  width: 0.65em;
+  height: 0.65em;
+  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+  transform: scale(0);
+  transform-origin: bottom left;
+  transition: 120ms transform ease-in-out;
+  box-shadow: inset 1em 1em #374151;
+}
+
+.dark .professional-checkbox::before {
+  box-shadow: inset 1em 1em #9ca3af;
+}
+
+.professional-checkbox:checked::before {
+  transform: scale(1);
+}
+
+.professional-checkbox:hover {
+  border-color: #9ca3af;
+}
+
+/* Search button hover effect */
+.search-button {
+  position: relative;
+  overflow: hidden;
+}
+
+.search-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.dark .search-button:hover:not(:disabled) {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.search-button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+/* Loading spinner */
+.loading-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid transparent;
+  border-top: 2px solid currentColor;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* Map loading spinner */
+.map-loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #e2e8f0;
+  border-top: 3px solid #374151;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto;
+}
+
+.dark .map-loading-spinner {
+  border: 3px solid var(--discord-light);
+  border-top: 3px solid #9ca3af;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Fade in animation */
+.fade-in {
+  animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Hover card effect */
+.hover-card {
+  transition: all 0.2s ease;
+}
+
+.hover-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.dark .hover-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 /* Leaflet map customization */
 .leaflet-container {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #f8fafc;
+}
+
+.dark .leaflet-container {
+  background: var(--discord-dark);
 }
 
 /* Professional popup styling */
 .leaflet-popup-content-wrapper {
-  border-radius: 8px;
+  border-radius: 12px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
   border: 1px solid #e2e8f0;
+  background: white;
 }
 
 .leaflet-popup-content {
@@ -113,87 +267,50 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Clean marker hover effects */
+/* Professional marker hover effects */
 .leaflet-marker-icon {
-  transition: transform 0.2s ease;
+  transition: transform 0.2s ease, filter 0.2s ease;
 }
 
 .leaflet-marker-icon:hover {
-  transform: scale(1.05);
+  transform: scale(1.1);
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
 }
 
 /* Professional map controls */
 .leaflet-control-zoom a {
-  color: #475569 !important;
-  border: 1px solid #e2e8f0 !important;
-  background: rgba(255, 255, 255, 0.95) !important;
-  font-size: 16px !important;
-  line-height: 26px !important;
-  width: 28px !important;
-  height: 28px !important;
+  color: #4b5563 !important;
+  border: 1px solid #e5e7eb !important;
+  background: rgba(255, 255, 255, 0.9) !important;
+  font-size: 14px !important;
+  line-height: 28px !important;
+  width: 30px !important;
+  height: 30px !important;
+  border-radius: 6px !important;
+  transition: all 0.2s ease !important;
 }
 
 .leaflet-control-zoom a:hover {
-  background: #f8fafc !important;
-  color: #1e293b !important;
+  background: #f9fafb !important;
+  color: #1f2937 !important;
+  transform: scale(1.05);
 }
 
 /* Dark theme map controls */
 .dark .leaflet-control-zoom a {
-  color: #cbd5e1 !important;
-  border: 1px solid #374151 !important;
-  background: rgba(30, 41, 59, 0.95) !important;
+  color: #9ca3af !important;
+  border: 1px solid var(--discord-border) !important;
+  background: rgba(47, 49, 54, 0.9) !important;
 }
 
 .dark .leaflet-control-zoom a:hover {
-  background: #475569 !important;
-  color: #f1f5f9 !important;
-}
-
-/* Professional checkbox styling */
-input[type="checkbox"] {
-  -webkit-appearance: none;
-  appearance: none;
-  background-color: #fff;
-  margin: 0;
-  font: inherit;
-  color: currentColor;
-  width: 1rem;
-  height: 1rem;
-  border: 1px solid #d1d5db;
-  border-radius: 0.25rem;
-  transform: translateY(-0.075em);
-  display: grid;
-  place-content: center;
-}
-
-.dark input[type="checkbox"] {
-  background-color: #374151;
-  border-color: #4b5563;
-}
-
-input[type="checkbox"]::before {
-  content: "";
-  width: 0.65em;
-  height: 0.65em;
-  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
-  transform: scale(0);
-  transform-origin: bottom left;
-  transition: 120ms transform ease-in-out;
-  box-shadow: inset 1em 1em #1e293b;
-}
-
-.dark input[type="checkbox"]::before {
-  box-shadow: inset 1em 1em #ffffff;
-}
-
-input[type="checkbox"]:checked::before {
-  transform: scale(1);
+  background: var(--discord-light) !important;
+  color: #f3f4f6 !important;
 }
 
 /* Button focus states */
 button:focus {
-  outline: 2px solid #94a3b8;
+  outline: 2px solid #3b82f6;
   outline-offset: 2px;
 }
 
@@ -201,53 +318,7 @@ button:focus {
 input:focus,
 select:focus {
   outline: none;
-  box-shadow: 0 0 0 2px #64748b;
-}
-
-/* Professional loading animation */
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.animate-spin {
-  animation: spin 1s linear infinite;
-}
-
-/* Clean card hover effects */
-.hover-card {
-  transition: all 0.2s ease;
-}
-
-.hover-card:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.dark .hover-card:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-}
-
-/* Mobile responsive adjustments */
-@media (max-width: 768px) {
-  .w-96 {
-    width: 100vw;
-  }
-}
-
-/* Professional typography */
-body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-/* Remove default button styles */
-button {
-  border: none;
-  background: none;
-  cursor: pointer;
+  box-shadow: 0 0 0 2px #3b82f6;
 }
 
 /* Professional shadows */
@@ -256,7 +327,7 @@ button {
 }
 
 .dark .shadow-lg {
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
 }
 
 .shadow-sm {
@@ -264,16 +335,34 @@ button {
 }
 
 .dark .shadow-sm {
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
 }
 
-/* Clean selection highlighting */
+/* Typography */
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Selection highlighting */
 ::selection {
-  background-color: #cbd5e1;
-  color: #1e293b;
+  background-color: #bfdbfe;
+  color: #1e40af;
 }
 
 .dark ::selection {
-  background-color: #475569;
-  color: #f1f5f9;
+  background-color: var(--discord-light);
+  color: #f3f4f6;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .w-96 {
+    width: 100vw;
+  }
+  
+  .hover-card:hover {
+    transform: none;
+  }
 }
