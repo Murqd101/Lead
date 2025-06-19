@@ -14,10 +14,10 @@ L.Icon.Default.mergeOptions({
   shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
 });
 
-// Clean, borderless marker icons
-const hotLeadIcon = new L.Icon({
+// Consistent single-color map markers
+const lightModeIcon = new L.Icon({
   iconUrl: 'data:image/svg+xml;base64,' + btoa(`
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#ef4444">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#374151">
       <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
     </svg>
   `),
@@ -26,54 +26,9 @@ const hotLeadIcon = new L.Icon({
   popupAnchor: [0, -20]
 });
 
-const warmLeadIcon = new L.Icon({
+const darkModeIcon = new L.Icon({
   iconUrl: 'data:image/svg+xml;base64,' + btoa(`
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f59e0b">
-      <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-    </svg>
-  `),
-  iconSize: [20, 20],
-  iconAnchor: [10, 20],
-  popupAnchor: [0, -20]
-});
-
-const coldLeadIcon = new L.Icon({
-  iconUrl: 'data:image/svg+xml;base64,' + btoa(`
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#6b7280">
-      <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-    </svg>
-  `),
-  iconSize: [20, 20],
-  iconAnchor: [10, 20],
-  popupAnchor: [0, -20]
-});
-
-// Dark mode markers
-const hotLeadIconDark = new L.Icon({
-  iconUrl: 'data:image/svg+xml;base64,' + btoa(`
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f87171">
-      <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-    </svg>
-  `),
-  iconSize: [20, 20],
-  iconAnchor: [10, 20],
-  popupAnchor: [0, -20]
-});
-
-const warmLeadIconDark = new L.Icon({
-  iconUrl: 'data:image/svg+xml;base64,' + btoa(`
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#fbbf24">
-      <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-    </svg>
-  `),
-  iconSize: [20, 20],
-  iconAnchor: [10, 20],
-  popupAnchor: [0, -20]
-});
-
-const coldLeadIconDark = new L.Icon({
-  iconUrl: 'data:image/svg+xml;base64=' + btoa(`
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#d1d5db">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f4f4f5">
       <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
     </svg>
   `),
