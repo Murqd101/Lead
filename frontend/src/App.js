@@ -424,7 +424,7 @@ function App() {
                       className="w-full range-slider"
                     />
                     <div className={`flex justify-between text-xs mt-1 transition-all duration-300 ${
-                      theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
+                      theme === 'dark' ? 'text-zinc-400' : 'text-gray-500'
                     }`}>
                       <span>1 km</span>
                       <span>50 km</span>
