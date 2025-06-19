@@ -249,10 +249,9 @@ function App() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
               </div>
-              <span className={`text-xl font-semibold transition-all duration-300 ${
-                theme === 'dark' ? 'text-white' : 'text-gray-700'
-              }`}>
-                LeadFinder
+              <span className={`text-xl font-semibold transition-all duration-300`}>
+                <span className={theme === 'dark' ? 'text-white' : 'text-gray-900'}>Lead</span>
+                <span className={theme === 'dark' ? 'text-zinc-300' : 'text-gray-500'}>Finder</span>
               </span>
             </div>
             
