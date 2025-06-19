@@ -35,23 +35,30 @@
   background: #71717a;
 }
 
-/* Fixed range slider with theme-matching track colors */
+/* Fixed range slider with visible theme-matching track colors */
 .range-slider {
   -webkit-appearance: none;
   appearance: none;
-  background: transparent;
+  background: #f3f4f6; /* Light mode track - match light icon background */
   cursor: pointer;
   height: 6px;
+  border-radius: 3px;
+  outline: none;
+}
+
+.dark .range-slider {
+  background: #3f3f46; /* Dark mode track - match dark icon background */
 }
 
 .range-slider::-webkit-slider-track {
-  background: #f3f4f6; /* Match light theme toggle background */
+  background: #f3f4f6; /* Light mode track - match light icon background */
   height: 6px;
   border-radius: 3px;
+  border: none;
 }
 
 .dark .range-slider::-webkit-slider-track {
-  background: #3f3f46; /* Match dark theme toggle background */
+  background: #3f3f46; /* Dark mode track - match dark icon background */
 }
 
 .range-slider::-webkit-slider-thumb {
@@ -78,14 +85,14 @@
 }
 
 .range-slider::-moz-range-track {
-  background: #f3f4f6; /* Match light theme toggle background */
+  background: #f3f4f6; /* Light mode track - match light icon background */
   height: 6px;
   border-radius: 3px;
   border: none;
 }
 
 .dark .range-slider::-moz-range-track {
-  background: #3f3f46; /* Match dark theme toggle background */
+  background: #3f3f46; /* Dark mode track - match dark icon background */
 }
 
 .range-slider::-moz-range-thumb {
