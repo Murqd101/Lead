@@ -325,7 +325,7 @@ function App() {
                   <div>
                     <div className="flex items-center justify-between mb-3">
                       <label className={`block text-sm font-semibold transition-all duration-300 ${
-                        theme === 'dark' ? 'text-zinc-100' : 'text-gray-900'
+                        theme === 'dark' ? 'text-white' : 'text-gray-900'
                       }`}>
                         Industry Target
                       </label>
