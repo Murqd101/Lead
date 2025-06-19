@@ -250,7 +250,7 @@ function App() {
                 </svg>
               </div>
               <span className={`text-xl font-semibold transition-all duration-300 ${
-                theme === 'dark' ? 'text-zinc-100' : 'text-gray-700'
+                theme === 'dark' ? 'text-white' : 'text-gray-700'
               }`}>
                 LeadFinder
               </span>
