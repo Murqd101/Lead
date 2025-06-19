@@ -14,41 +14,72 @@ L.Icon.Default.mergeOptions({
   shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
 });
 
-// Professional marker icons with clean design
+// Clean, borderless marker icons
 const hotLeadIcon = new L.Icon({
   iconUrl: 'data:image/svg+xml;base64,' + btoa(`
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 32" fill="none">
-      <path d="M12 0C5.373 0 0 5.373 0 12c0 9 12 20 12 20s12-11 12-20c0-6.627-5.373-12-12-12z" fill="#ffffff" stroke="#ef4444" stroke-width="2"/>
-      <circle cx="12" cy="12" r="6" fill="#ef4444"/>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#ef4444">
+      <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
     </svg>
   `),
-  iconSize: [24, 32],
-  iconAnchor: [12, 32],
-  popupAnchor: [0, -32]
+  iconSize: [20, 20],
+  iconAnchor: [10, 20],
+  popupAnchor: [0, -20]
 });
 
 const warmLeadIcon = new L.Icon({
-  iconUrl: 'data:image/svg+xml;base64=' + btoa(`
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 32" fill="none">
-      <path d="M12 0C5.373 0 0 5.373 0 12c0 9 12 20 12 20s12-11 12-20c0-6.627-5.373-12-12-12z" fill="#ffffff" stroke="#f59e0b" stroke-width="2"/>
-      <circle cx="12" cy="12" r="6" fill="#f59e0b"/>
+  iconUrl: 'data:image/svg+xml;base64,' + btoa(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f59e0b">
+      <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
     </svg>
   `),
-  iconSize: [24, 32],
-  iconAnchor: [12, 32],
-  popupAnchor: [0, -32]
+  iconSize: [20, 20],
+  iconAnchor: [10, 20],
+  popupAnchor: [0, -20]
 });
 
 const coldLeadIcon = new L.Icon({
-  iconUrl: 'data:image/svg+xml;base64=' + btoa(`
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 32" fill="none">
-      <path d="M12 0C5.373 0 0 5.373 0 12c0 9 12 20 12 20s12-11 12-20c0-6.627-5.373-12-12-12z" fill="#ffffff" stroke="#6b7280" stroke-width="2"/>
-      <circle cx="12" cy="12" r="6" fill="#6b7280"/>
+  iconUrl: 'data:image/svg+xml;base64,' + btoa(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#6b7280">
+      <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
     </svg>
   `),
-  iconSize: [24, 32],
-  iconAnchor: [12, 32],
-  popupAnchor: [0, -32]
+  iconSize: [20, 20],
+  iconAnchor: [10, 20],
+  popupAnchor: [0, -20]
+});
+
+// Dark mode markers
+const hotLeadIconDark = new L.Icon({
+  iconUrl: 'data:image/svg+xml;base64,' + btoa(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f87171">
+      <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+    </svg>
+  `),
+  iconSize: [20, 20],
+  iconAnchor: [10, 20],
+  popupAnchor: [0, -20]
+});
+
+const warmLeadIconDark = new L.Icon({
+  iconUrl: 'data:image/svg+xml;base64,' + btoa(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#fbbf24">
+      <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+    </svg>
+  `),
+  iconSize: [20, 20],
+  iconAnchor: [10, 20],
+  popupAnchor: [0, -20]
+});
+
+const coldLeadIconDark = new L.Icon({
+  iconUrl: 'data:image/svg+xml;base64=' + btoa(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#d1d5db">
+      <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+    </svg>
+  `),
+  iconSize: [20, 20],
+  iconAnchor: [10, 20],
+  popupAnchor: [0, -20]
 });
 
 // Map component to handle search location
@@ -220,11 +251,20 @@ function App() {
   };
 
   const getLeadIcon = (leadStatus) => {
-    switch (leadStatus) {
-      case 'hot': return hotLeadIcon;
-      case 'warm': return warmLeadIcon;
-      case 'cold': return coldLeadIcon;
-      default: return coldLeadIcon;
+    if (theme === 'dark') {
+      switch (leadStatus) {
+        case 'hot': return hotLeadIconDark;
+        case 'warm': return warmLeadIconDark;
+        case 'cold': return coldLeadIconDark;
+        default: return coldLeadIconDark;
+      }
+    } else {
+      switch (leadStatus) {
+        case 'hot': return hotLeadIcon;
+        case 'warm': return warmLeadIcon;
+        case 'cold': return coldLeadIcon;
+        default: return coldLeadIcon;
+      }
     }
   };
 
@@ -248,7 +288,7 @@ function App() {
         ? 'bg-zinc-900' // Match dark map background
         : 'bg-gray-50'  // Light background
     }`}>
-      {/* Header - Match Dark Map Colors */}
+      {/* Header */}
       <header className={`shadow-sm border-b transition-all duration-300 ${
         theme === 'dark'
           ? 'bg-zinc-800 border-zinc-700' // Match dark map header
@@ -256,12 +296,12 @@ function App() {
       }`}>
         <div className="max-w-7xl mx-auto px-8">
           <div className="flex justify-between items-center h-16">
-            {/* Simple Logo */}
+            {/* Logo */}
             <div className="flex items-center space-x-3">
               <div className={`w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-300 ${
                 theme === 'dark' 
-                  ? 'bg-zinc-100 text-zinc-900'
-                  : 'bg-gray-900 text-white'
+                  ? 'bg-zinc-600 text-zinc-100'
+                  : 'bg-gray-300 text-gray-700'
               }`}>
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -269,7 +309,7 @@ function App() {
                 </svg>
               </div>
               <span className={`text-xl font-semibold transition-all duration-300 ${
-                theme === 'dark' ? 'text-zinc-100' : 'text-gray-900'
+                theme === 'dark' ? 'text-zinc-100' : 'text-gray-700'
               }`}>
                 LeadFinder
               </span>
@@ -330,7 +370,7 @@ function App() {
       </header>
 
       <div className="flex h-screen pt-16">
-        {/* Sidebar - Match Dark Map Colors */}
+        {/* Sidebar */}
         <div className={`w-96 shadow-lg border-r overflow-y-auto transition-all duration-300 ${
           theme === 'dark'
             ? 'bg-zinc-800 border-zinc-700' // Match dark map sidebar
@@ -366,7 +406,7 @@ function App() {
                         type="text"
                         value={customSearch}
                         onChange={(e) => setCustomSearch(e.target.value)}
-                        className={`w-full px-4 py-3 border rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                        className={`w-full px-4 py-3 border rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-transparent ${
                           theme === 'dark'
                             ? 'bg-zinc-700 border-zinc-600 text-zinc-100 placeholder-zinc-400'
                             : 'bg-white border-gray-200 text-gray-900 placeholder-gray-500'
@@ -377,7 +417,7 @@ function App() {
                       <select
                         value={searchForm.business_type}
                         onChange={(e) => setSearchForm({...searchForm, business_type: e.target.value})}
-                        className={`w-full px-4 py-3 border rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                        className={`w-full px-4 py-3 border rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-transparent ${
                           theme === 'dark'
                             ? 'bg-zinc-700 border-zinc-600 text-zinc-100'
                             : 'bg-white border-gray-200 text-gray-900'
@@ -400,7 +440,7 @@ function App() {
                       type="text"
                       value={searchForm.location}
                       onChange={(e) => setSearchForm({...searchForm, location: e.target.value})}
-                      className={`w-full px-4 py-3 border rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                      className={`w-full px-4 py-3 border rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-transparent ${
                         theme === 'dark'
                           ? 'bg-zinc-700 border-zinc-600 text-zinc-100 placeholder-zinc-400'
                           : 'bg-white border-gray-200 text-gray-900 placeholder-gray-500'
@@ -436,8 +476,8 @@ function App() {
                     disabled={loading}
                     className={`w-full py-3 px-6 rounded-lg font-semibold transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed search-button ${
                       theme === 'dark'
-                        ? 'bg-zinc-100 text-zinc-900 hover:bg-zinc-200'
-                        : 'bg-gray-900 text-white hover:bg-gray-800'
+                        ? 'bg-zinc-600 text-zinc-100 hover:bg-zinc-500'
+                        : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
                     }`}
                   >
                     {loading ? (
@@ -455,7 +495,7 @@ function App() {
                 {searchPerformed && businesses.length === 0 && !loading && (
                   <div className={`text-center py-8 border rounded-lg transition-all duration-300 ${
                     theme === 'dark'
-                      ? 'bg-gray-700 border-gray-600 text-gray-300'
+                      ? 'bg-zinc-700 border-zinc-600 text-zinc-300'
                       : 'bg-gray-50 border-gray-200 text-gray-600'
                   }`}>
                     <svg className="w-12 h-12 mx-auto mb-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -469,17 +509,17 @@ function App() {
                 {/* Filters */}
                 {businesses.length > 0 && (
                   <div className={`border-t pt-6 space-y-6 transition-all duration-300 ${
-                    theme === 'dark' ? 'border-gray-600' : 'border-gray-200'
+                    theme === 'dark' ? 'border-zinc-600' : 'border-gray-200'
                   }`}>
                     <h3 className={`text-sm font-semibold transition-all duration-300 ${
-                      theme === 'dark' ? 'text-gray-100' : 'text-gray-900'
+                      theme === 'dark' ? 'text-zinc-100' : 'text-gray-900'
                     }`}>
                       Filters
                     </h3>
                     
                     <div>
                       <label className={`block text-sm font-medium mb-3 transition-all duration-300 ${
-                        theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
+                        theme === 'dark' ? 'text-zinc-300' : 'text-gray-700'
                       }`}>
                         Quality Score: {filters.min_quality_score}+
                       </label>
@@ -492,7 +532,7 @@ function App() {
                         className="w-full range-slider"
                       />
                       <div className={`flex justify-between text-xs mt-1 transition-all duration-300 ${
-                        theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
+                        theme === 'dark' ? 'text-zinc-400' : 'text-gray-500'
                       }`}>
                         <span>Low</span>
                         <span>High</span>
@@ -501,16 +541,16 @@ function App() {
                     
                     <div>
                       <label className={`block text-sm font-medium mb-3 transition-all duration-300 ${
-                        theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
+                        theme === 'dark' ? 'text-zinc-300' : 'text-gray-700'
                       }`}>
                         Lead Priority
                       </label>
                       <select
                         value={filters.lead_status}
                         onChange={(e) => setFilters({...filters, lead_status: e.target.value})}
-                        className={`w-full px-4 py-3 border rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                        className={`w-full px-4 py-3 border rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-transparent ${
                           theme === 'dark'
-                            ? 'bg-gray-700 border-gray-600 text-gray-100'
+                            ? 'bg-zinc-700 border-zinc-600 text-zinc-100'
                             : 'bg-white border-gray-200 text-gray-900'
                         }`}
                       >
@@ -530,7 +570,7 @@ function App() {
                         className="w-4 h-4 professional-checkbox"
                       />
                       <label htmlFor="has_contact" className={`ml-3 text-sm transition-all duration-300 ${
-                        theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
+                        theme === 'dark' ? 'text-zinc-300' : 'text-gray-700'
                       }`}>
                         Require contact information
                       </label>
@@ -538,11 +578,11 @@ function App() {
 
                     {/* Results Summary */}
                     <div className={`border-t pt-4 transition-all duration-300 ${
-                      theme === 'dark' ? 'border-gray-600' : 'border-gray-200'
+                      theme === 'dark' ? 'border-zinc-600' : 'border-gray-200'
                     }`}>
                       <div className="flex justify-between items-center mb-4">
                         <h3 className={`text-sm font-semibold transition-all duration-300 ${
-                          theme === 'dark' ? 'text-gray-100' : 'text-gray-900'
+                          theme === 'dark' ? 'text-zinc-100' : 'text-gray-700'
                         }`}>
                           {filteredBusinesses.length} Qualified Leads
                         </h3>
@@ -550,8 +590,8 @@ function App() {
                           onClick={exportToCSV}
                           className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:scale-105 ${
                             theme === 'dark'
-                              ? 'bg-gray-100 text-gray-900 hover:bg-gray-200'
-                              : 'bg-gray-900 text-white hover:bg-gray-800'
+                              ? 'bg-zinc-600 text-zinc-100 hover:bg-zinc-500'
+                              : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
                           }`}
                         >
                           Export CSV
@@ -565,26 +605,26 @@ function App() {
               /* Favorites Tab */
               <div>
                 <h2 className={`text-xl font-semibold mb-6 transition-all duration-300 ${
-                  theme === 'dark' ? 'text-gray-100' : 'text-gray-900'
+                  theme === 'dark' ? 'text-zinc-100' : 'text-gray-900'
                 }`}>
                   Saved Leads
                 </h2>
                 {favorites.length === 0 ? (
                   <div className="text-center py-12">
                     <div className={`w-16 h-16 rounded-lg flex items-center justify-center mx-auto mb-4 transition-all duration-300 ${
-                      theme === 'dark' ? 'bg-gray-700' : 'bg-gray-100'
+                      theme === 'dark' ? 'bg-zinc-700' : 'bg-gray-100'
                     }`}>
                       <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                       </svg>
                     </div>
                     <p className={`transition-all duration-300 ${
-                      theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
+                      theme === 'dark' ? 'text-zinc-400' : 'text-gray-500'
                     }`}>
                       No saved leads
                     </p>
                     <p className={`text-sm mt-1 transition-all duration-300 ${
-                      theme === 'dark' ? 'text-gray-500' : 'text-gray-400'
+                      theme === 'dark' ? 'text-zinc-500' : 'text-gray-400'
                     }`}>
                       Save prospects to build your pipeline
                     </p>
@@ -594,23 +634,23 @@ function App() {
                     {favorites.map(business => (
                       <div key={business.favorite_id} className={`p-5 rounded-lg border hover-card transition-all duration-300 ${
                         theme === 'dark'
-                          ? 'bg-gray-700 border-gray-600'
+                          ? 'bg-zinc-700 border-zinc-600'
                           : 'bg-gray-50 border-gray-200'
                       }`}>
                         <div className="flex justify-between items-start">
                           <div className="flex-1">
                             <h4 className={`font-semibold mb-1 transition-all duration-300 ${
-                              theme === 'dark' ? 'text-gray-100' : 'text-gray-900'
+                              theme === 'dark' ? 'text-zinc-100' : 'text-gray-900'
                             }`}>
                               {business.name}
                             </h4>
                             <p className={`text-sm capitalize mb-2 transition-all duration-300 ${
-                              theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+                              theme === 'dark' ? 'text-zinc-400' : 'text-gray-600'
                             }`}>
                               {business.business_type}
                             </p>
                             <p className={`text-sm mb-3 transition-all duration-300 ${
-                              theme === 'dark' ? 'text-gray-500' : 'text-gray-500'
+                              theme === 'dark' ? 'text-zinc-500' : 'text-gray-500'
                             }`}>
                               {business.address}
                             </p>
@@ -618,7 +658,7 @@ function App() {
                               {business.phone && (
                                 <a href={`tel:${business.phone}`} className={`transition-colors duration-200 ${
                                   theme === 'dark'
-                                    ? 'text-gray-300 hover:text-gray-100'
+                                    ? 'text-zinc-300 hover:text-zinc-100'
                                     : 'text-gray-700 hover:text-gray-900'
                                 }`}>
                                   {business.phone}
@@ -627,7 +667,7 @@ function App() {
                               {business.website && (
                                 <a href={business.website} target="_blank" rel="noopener noreferrer" className={`transition-colors duration-200 ${
                                   theme === 'dark'
-                                    ? 'text-gray-300 hover:text-gray-100'
+                                    ? 'text-zinc-300 hover:text-zinc-100'
                                     : 'text-gray-700 hover:text-gray-900'
                                 }`}>
                                   Website
@@ -636,7 +676,7 @@ function App() {
                               {business.email && (
                                 <a href={`mailto:${business.email}`} className={`transition-colors duration-200 ${
                                   theme === 'dark'
-                                    ? 'text-gray-300 hover:text-gray-100'
+                                    ? 'text-zinc-300 hover:text-zinc-100'
                                     : 'text-gray-700 hover:text-gray-900'
                                 }`}>
                                   {business.email}
@@ -662,18 +702,18 @@ function App() {
           </div>
         </div>
 
-        {/* Map Container - Full Discord Theme */}
+        {/* Map Container */}
         <div className={`flex-1 relative transition-all duration-300 ${
-          theme === 'dark' ? 'bg-gray-700' : 'bg-gray-50'
+          theme === 'dark' ? 'bg-zinc-900' : 'bg-gray-50'
         }`}>
           {mapLoading && (
             <div className={`absolute inset-0 flex items-center justify-center z-10 transition-all duration-300 ${
-              theme === 'dark' ? 'bg-gray-700' : 'bg-gray-50'
+              theme === 'dark' ? 'bg-zinc-900' : 'bg-gray-50'
             }`}>
               <div className="text-center">
                 <div className="map-loading-spinner mb-4"></div>
                 <p className={`transition-all duration-300 ${
-                  theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+                  theme === 'dark' ? 'text-zinc-400' : 'text-gray-600'
                 }`}>
                   Loading map...
                 </p>
@@ -750,7 +790,7 @@ function App() {
                       </span>
                       <button
                         onClick={() => addToFavorites(business)}
-                        className="px-4 py-2 bg-gray-900 text-white rounded-lg text-sm font-medium hover:bg-gray-800 transition-all duration-200 hover:scale-105"
+                        className="px-4 py-2 bg-gray-700 text-white rounded-lg text-sm font-medium hover:bg-gray-800 transition-all duration-200 hover:scale-105"
                       >
                         Save Lead
                       </button>
@@ -765,45 +805,45 @@ function App() {
           {businesses.length > 0 && (
             <div className={`absolute top-6 right-6 rounded-lg shadow-lg border p-5 max-w-sm fade-in transition-all duration-300 ${
               theme === 'dark'
-                ? 'bg-gray-800 border-gray-600'
+                ? 'bg-zinc-800 border-zinc-600'
                 : 'bg-white border-gray-200'
             }`}>
               <h4 className={`font-semibold mb-3 transition-all duration-300 ${
-                theme === 'dark' ? 'text-gray-100' : 'text-gray-900'
+                theme === 'dark' ? 'text-zinc-100' : 'text-gray-900'
               }`}>
                 Results
               </h4>
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
                   <span className={`transition-all duration-300 ${
-                    theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+                    theme === 'dark' ? 'text-zinc-400' : 'text-gray-600'
                   }`}>
                     Found:
                   </span>
                   <span className={`font-medium transition-all duration-300 ${
-                    theme === 'dark' ? 'text-gray-100' : 'text-gray-900'
+                    theme === 'dark' ? 'text-zinc-100' : 'text-gray-900'
                   }`}>
                     {businesses.length}
                   </span>
                 </div>
                 <div className="flex justify-between">
                   <span className={`transition-all duration-300 ${
-                    theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+                    theme === 'dark' ? 'text-zinc-400' : 'text-gray-600'
                   }`}>
                     Qualified:
                   </span>
                   <span className={`font-medium transition-all duration-300 ${
-                    theme === 'dark' ? 'text-gray-100' : 'text-gray-900'
+                    theme === 'dark' ? 'text-zinc-100' : 'text-gray-900'
                   }`}>
                     {filteredBusinesses.length}
                   </span>
                 </div>
                 <div className={`border-t pt-2 mt-3 space-y-1 transition-all duration-300 ${
-                  theme === 'dark' ? 'border-gray-600' : 'border-gray-200'
+                  theme === 'dark' ? 'border-zinc-600' : 'border-gray-200'
                 }`}>
                   <div className="flex justify-between">  
                     <span className={`transition-all duration-300 ${
-                      theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+                      theme === 'dark' ? 'text-zinc-400' : 'text-gray-600'
                     }`}>
                       Hot:
                     </span>
@@ -811,7 +851,7 @@ function App() {
                   </div>
                   <div className="flex justify-between">
                     <span className={`transition-all duration-300 ${
-                      theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+                      theme === 'dark' ? 'text-zinc-400' : 'text-gray-600'
                     }`}>
                       Warm:
                     </span>
@@ -819,7 +859,7 @@ function App() {
                   </div>
                   <div className="flex justify-between">
                     <span className={`transition-all duration-300 ${
-                      theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+                      theme === 'dark' ? 'text-zinc-400' : 'text-gray-600'
                     }`}>
                       Cold:
                     </span>
