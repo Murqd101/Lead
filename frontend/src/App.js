@@ -368,7 +368,7 @@ function App() {
                         onChange={(e) => setCustomSearch(e.target.value)}
                         className={`w-full px-4 py-3 border rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
                           theme === 'dark'
-                            ? 'bg-gray-700 border-gray-600 text-gray-100 placeholder-gray-400'
+                            ? 'bg-zinc-700 border-zinc-600 text-zinc-100 placeholder-zinc-400'
                             : 'bg-white border-gray-200 text-gray-900 placeholder-gray-500'
                         }`}
                         placeholder="e.g., AI startups, dental clinics, marketing agencies"
