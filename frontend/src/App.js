@@ -27,7 +27,7 @@ const lightModeIcon = new L.Icon({
 });
 
 const darkModeIcon = new L.Icon({
-  iconUrl: 'data:image/svg+xml;base64,' + btoa(`
+  iconUrl: 'data:image/svg+xml;base64=' + btoa(`
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f4f4f5">
       <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
     </svg>
@@ -50,6 +50,70 @@ function MapController({ searchLocation }) {
   return null;
 }
 
+// Mock data for demo
+const mockCampaigns = [
+  {
+    id: '1',
+    name: 'SaaS Outreach Q1',
+    type: 'email',
+    status: 'active',
+    sent: 247,
+    opened: 89,
+    replied: 23,
+    created_at: '2024-01-15',
+    template: 'Hi {{business_name}}, I noticed your innovative approach to {{industry}}...'
+  },
+  {
+    id: '2', 
+    name: 'Restaurant Instagram DMs',
+    type: 'instagram',
+    status: 'completed',
+    sent: 156,
+    opened: 142,
+    replied: 31,
+    created_at: '2024-01-10',
+    template: 'Hi {{business_name}}! Love your food photos...'
+  },
+  {
+    id: '3',
+    name: 'Dental Practice Calls',
+    type: 'voice',
+    status: 'paused',
+    sent: 89,
+    opened: 89,
+    replied: 12,
+    created_at: '2024-01-08',
+    template: 'AI Voice Call Script for dental practices...'
+  }
+];
+
+const mockTemplates = [
+  {
+    id: '1',
+    name: 'SaaS Cold Email',
+    type: 'email',
+    subject: 'Quick question about {{business_name}}',
+    content: 'Hi {{contact_name}},\n\nI came across {{business_name}} and was impressed by your work in {{industry}}...',
+    variables: ['business_name', 'contact_name', 'industry']
+  },
+  {
+    id: '2',
+    name: 'Instagram DM Template',
+    type: 'instagram', 
+    subject: '',
+    content: 'Hey {{business_name}}! 👋 Love what you\'re doing with {{industry}}. Would love to connect!',
+    variables: ['business_name', 'industry']
+  },
+  {
+    id: '3',
+    name: 'AI Voice Script',
+    type: 'voice',
+    subject: '',
+    content: 'Hello, this is Sarah from LeadFinder. I\'m calling {{business_name}} regarding an opportunity in {{industry}}...',
+    variables: ['business_name', 'industry']
+  }
+];
+
 function App() {
   const [theme, setTheme] = useState('light');
   const [businesses, setBusinesses] = useState([]);
@@ -62,6 +126,12 @@ function App() {
   const [customSearch, setCustomSearch] = useState('');
   const [showCustomSearch, setShowCustomSearch] = useState(false);
   const [searchPerformed, setSearchPerformed] = useState(false);
+  
+  // Outreach state
+  const [campaigns, setCampaigns] = useState(mockCampaigns);
+  const [templates, setTemplates] = useState(mockTemplates);
+  const [selectedCampaign, setSelectedCampaign] = useState(null);
+  const [outreachLoading, setOutreachLoading] = useState(false);
   
   // Search form state
   const [searchForm, setSearchForm] = useState({
@@ -205,6 +275,26 @@ function App() {
     }
   };
 
+  // Mock outreach functions for demo
+  const startCampaign = async (campaignData) => {
+    setOutreachLoading(true);
+    // Simulate API call
+    setTimeout(() => {
+      const newCampaign = {
+        ...campaignData,
+        id: Date.now().toString(),
+        status: 'active',
+        sent: 0,
+        opened: 0,
+        replied: 0,
+        created_at: new Date().toISOString().split('T')[0]
+      };
+      setCampaigns([newCampaign, ...campaigns]);
+      setOutreachLoading(false);
+      alert(`🚀 Campaign "${campaignData.name}" started! (Demo Mode)`);
+    }, 2000);
+  };
+
   const getLeadIcon = (leadStatus) => {
     return theme === 'dark' ? darkModeIcon : lightModeIcon;
   };
@@ -222,6 +312,217 @@ function App() {
     if (filters.has_contact && !business.phone && !business.email) return false;
     return true;
   });
+
+  const renderOutreachTab = () => (
+    <div className="space-y-6">
+      <div className="flex justify-between items-center">
+        <h2 className={`text-xl font-semibold transition-all duration-300 ${
+          theme === 'dark' ? 'text-white' : 'text-gray-900'
+        }`}>
+          Outreach Automation
+        </h2>
+        <div className={`text-xs px-3 py-1 rounded-full ${
+          theme === 'dark' ? 'bg-zinc-700 text-zinc-300' : 'bg-gray-100 text-gray-600'
+        }`}>
+          DEMO MODE
+        </div>
+      </div>
+
+      {/* Quick Stats */}
+      <div className="grid grid-cols-3 gap-4">
+        <div className={`p-4 rounded-lg border transition-all duration-300 ${
+          theme === 'dark' ? 'bg-zinc-700 border-zinc-600' : 'bg-white border-gray-200'
+        }`}>
+          <div className={`text-2xl font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+            {campaigns.reduce((sum, c) => sum + c.sent, 0)}
+          </div>
+          <div className={`text-sm ${theme === 'dark' ? 'text-zinc-400' : 'text-gray-500'}`}>
+            Total Outreach
+          </div>
+        </div>
+        <div className={`p-4 rounded-lg border transition-all duration-300 ${
+          theme === 'dark' ? 'bg-zinc-700 border-zinc-600' : 'bg-white border-gray-200'
+        }`}>
+          <div className={`text-2xl font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+            {campaigns.reduce((sum, c) => sum + c.replied, 0)}
+          </div>
+          <div className={`text-sm ${theme === 'dark' ? 'text-zinc-400' : 'text-gray-500'}`}>
+            Responses
+          </div>
+        </div>
+        <div className={`p-4 rounded-lg border transition-all duration-300 ${
+          theme === 'dark' ? 'bg-zinc-700 border-zinc-600' : 'bg-white border-gray-200'
+        }`}>
+          <div className={`text-2xl font-bold text-green-500`}>
+            {Math.round((campaigns.reduce((sum, c) => sum + c.replied, 0) / campaigns.reduce((sum, c) => sum + c.sent, 1)) * 100)}%
+          </div>
+          <div className={`text-sm ${theme === 'dark' ? 'text-zinc-400' : 'text-gray-500'}`}>
+            Response Rate
+          </div>
+        </div>
+      </div>
+
+      {/* Campaign List */}
+      <div className={`rounded-lg border transition-all duration-300 ${
+        theme === 'dark' ? 'bg-zinc-700 border-zinc-600' : 'bg-white border-gray-200'
+      }`}>
+        <div className="p-4 border-b border-zinc-600 dark:border-zinc-600">
+          <h3 className={`font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+            Active Campaigns
+          </h3>
+        </div>
+        <div className="p-4 space-y-4">
+          {campaigns.map(campaign => (
+            <div key={campaign.id} className={`p-4 rounded-lg border transition-all duration-300 hover-card ${
+              theme === 'dark' ? 'bg-zinc-600 border-zinc-500' : 'bg-gray-50 border-gray-200'
+            }`}>
+              <div className="flex justify-between items-start">
+                <div className="flex-1">
+                  <div className="flex items-center space-x-3 mb-2">
+                    <h4 className={`font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+                      {campaign.name}
+                    </h4>
+                    <span className={`text-xs px-2 py-1 rounded-full ${
+                      campaign.type === 'email' ? 'bg-blue-100 text-blue-800' :
+                      campaign.type === 'instagram' ? 'bg-pink-100 text-pink-800' :
+                      'bg-purple-100 text-purple-800'
+                    }`}>
+                      {campaign.type === 'email' ? '📧 Email' : 
+                       campaign.type === 'instagram' ? '📱 Instagram' : '📞 Voice'}
+                    </span>
+                    <span className={`text-xs px-2 py-1 rounded-full ${
+                      campaign.status === 'active' ? 'bg-green-100 text-green-800' :
+                      campaign.status === 'completed' ? 'bg-gray-100 text-gray-800' :
+                      'bg-yellow-100 text-yellow-800'
+                    }`}>
+                      {campaign.status}
+                    </span>
+                  </div>
+                  <div className="grid grid-cols-3 gap-4 text-sm">
+                    <div>
+                      <span className={theme === 'dark' ? 'text-zinc-400' : 'text-gray-500'}>Sent:</span>
+                      <span className={`ml-1 font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+                        {campaign.sent}
+                      </span>
+                    </div>
+                    <div>
+                      <span className={theme === 'dark' ? 'text-zinc-400' : 'text-gray-500'}>Opened:</span>
+                      <span className={`ml-1 font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+                        {campaign.opened}
+                      </span>
+                    </div>
+                    <div>
+                      <span className={theme === 'dark' ? 'text-zinc-400' : 'text-gray-500'}>Replied:</span>
+                      <span className={`ml-1 font-medium text-green-600`}>
+                        {campaign.replied}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <button className={`px-3 py-1 text-sm rounded-lg transition-all duration-200 ${
+                  theme === 'dark' 
+                    ? 'bg-white text-zinc-900 hover:bg-gray-100'
+                    : 'bg-gray-900 text-white hover:bg-gray-800'
+                }`}>
+                  View Details
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Quick Launch */}
+      <div className={`rounded-lg border transition-all duration-300 ${
+        theme === 'dark' ? 'bg-zinc-700 border-zinc-600' : 'bg-white border-gray-200'
+      }`}>
+        <div className="p-4 border-b border-zinc-600 dark:border-zinc-600">
+          <h3 className={`font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+            Quick Launch Campaign
+          </h3>
+        </div>
+        <div className="p-4">
+          <div className="grid grid-cols-3 gap-4">
+            <button 
+              onClick={() => startCampaign({name: `Email Campaign ${Date.now()}`, type: 'email'})}
+              disabled={outreachLoading}
+              className={`p-4 rounded-lg border-2 border-dashed transition-all duration-200 hover:scale-105 ${
+                theme === 'dark' 
+                  ? 'border-zinc-500 hover:border-zinc-400 text-zinc-300'
+                  : 'border-gray-300 hover:border-gray-400 text-gray-600'
+              }`}
+            >
+              <div className="text-2xl mb-2">📧</div>
+              <div className="font-medium">Email Campaign</div>
+              <div className="text-sm opacity-75">To {favorites.length} saved leads</div>
+            </button>
+            
+            <button 
+              onClick={() => startCampaign({name: `Instagram DM ${Date.now()}`, type: 'instagram'})}
+              disabled={outreachLoading}
+              className={`p-4 rounded-lg border-2 border-dashed transition-all duration-200 hover:scale-105 ${
+                theme === 'dark' 
+                  ? 'border-zinc-500 hover:border-zinc-400 text-zinc-300'
+                  : 'border-gray-300 hover:border-gray-400 text-gray-600'
+              }`}
+            >
+              <div className="text-2xl mb-2">📱</div>
+              <div className="font-medium">Instagram DMs</div>
+              <div className="text-sm opacity-75">Auto personalized</div>
+            </button>
+            
+            <button 
+              onClick={() => startCampaign({name: `Voice Calls ${Date.now()}`, type: 'voice'})}
+              disabled={outreachLoading}
+              className={`p-4 rounded-lg border-2 border-dashed transition-all duration-200 hover:scale-105 ${
+                theme === 'dark' 
+                  ? 'border-zinc-500 hover:border-zinc-400 text-zinc-300'
+                  : 'border-gray-300 hover:border-gray-400 text-gray-600'
+              }`}
+            >
+              <div className="text-2xl mb-2">📞</div>
+              <div className="font-medium">AI Voice Calls</div>
+              <div className="text-sm opacity-75">ElevenLabs powered</div>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Integration Status */}
+      <div className={`rounded-lg border transition-all duration-300 ${
+        theme === 'dark' ? 'bg-zinc-700 border-zinc-600' : 'bg-white border-gray-200'
+      }`}>
+        <div className="p-4 border-b border-zinc-600 dark:border-zinc-600">
+          <h3 className={`font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+            Integration Status
+          </h3>
+        </div>
+        <div className="p-4 space-y-3">
+          <div className="flex justify-between items-center">
+            <div className="flex items-center space-x-3">
+              <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+              <span className={theme === 'dark' ? 'text-zinc-300' : 'text-gray-700'}>Gmail API</span>
+            </div>
+            <span className="text-sm text-red-600">API Key Required</span>
+          </div>
+          <div className="flex justify-between items-center">
+            <div className="flex items-center space-x-3">
+              <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+              <span className={theme === 'dark' ? 'text-zinc-300' : 'text-gray-700'}>Instagram Business API</span>
+            </div>
+            <span className="text-sm text-red-600">API Key Required</span>
+          </div>
+          <div className="flex justify-between items-center">
+            <div className="flex items-center space-x-3">
+              <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+              <span className={theme === 'dark' ? 'text-zinc-300' : 'text-gray-700'}>ElevenLabs Voice API</span>
+            </div>
+            <span className="text-sm text-red-600">API Key Required</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 
   return (
     <div className={`min-h-screen transition-all duration-300 ${
@@ -285,6 +586,20 @@ function App() {
                   }`}
                 >
                   Saved {favorites.length > 0 && `(${favorites.length})`}
+                </button>
+                <button
+                  onClick={() => setActiveTab('outreach')}
+                  className={`px-4 py-2 text-sm font-medium transition-all duration-200 rounded-lg ${
+                    activeTab === 'outreach' 
+                      ? theme === 'dark'
+                        ? 'text-white bg-zinc-700'
+                        : 'text-gray-900 bg-gray-100'
+                      : theme === 'dark'
+                        ? 'text-zinc-400 hover:text-white hover:bg-zinc-700'
+                        : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                  }`}
+                >
+                  Outreach 🚀
                 </button>
               </nav>
               
@@ -372,7 +687,7 @@ function App() {
                   
                   <div>
                     <label className={`block text-sm font-semibold mb-3 transition-all duration-300 ${
-                      theme === 'dark' ? 'text-zinc-100' : 'text-gray-900'
+                      theme === 'dark' ? 'text-white' : 'text-gray-900'
                     }`}>
                       Location
                     </label>
@@ -391,7 +706,7 @@ function App() {
                   
                   <div>
                     <label className={`block text-sm font-semibold mb-3 transition-all duration-300 ${
-                      theme === 'dark' ? 'text-zinc-100' : 'text-gray-900'
+                      theme === 'dark' ? 'text-white' : 'text-gray-900'
                     }`}>
                       Search Radius: {searchForm.radius} km
                     </label>
@@ -541,11 +856,13 @@ function App() {
                   </div>
                 )}
               </>
+            ) : activeTab === 'outreach' ? (
+              renderOutreachTab()
             ) : (
               /* Favorites Tab */
               <div>
                 <h2 className={`text-xl font-semibold mb-6 transition-all duration-300 ${
-                  theme === 'dark' ? 'text-zinc-100' : 'text-gray-900'
+                  theme === 'dark' ? 'text-white' : 'text-gray-900'
                 }`}>
                   Saved Leads
                 </h2>
@@ -580,7 +897,7 @@ function App() {
                         <div className="flex justify-between items-start">
                           <div className="flex-1">
                             <h4 className={`font-semibold mb-1 transition-all duration-300 ${
-                              theme === 'dark' ? 'text-zinc-100' : 'text-gray-900'
+                              theme === 'dark' ? 'text-white' : 'text-gray-900'
                             }`}>
                               {business.name}
                             </h4>
@@ -661,88 +978,113 @@ function App() {
             </div>
           )}
           
-          <MapContainer
-            center={[37.7749, -122.4194]}
-            zoom={10}
-            className="h-full w-full"
-          >
-            <TileLayer
-              url={theme === 'dark' 
-                ? "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
-                : "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-              }
-              attribution={theme === 'dark' 
-                ? '&copy; <a href="https://carto.com/">CARTO</a>'
-                : '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-              }
-            />
-            
-            {searchLocation && <MapController searchLocation={searchLocation} />}
-            
-            {filteredBusinesses.map(business => (
-              <Marker
-                key={business.id}
-                position={[business.lat, business.lon]}
-                icon={getLeadIcon(business.lead_status)}
-              >
-                <Popup className="custom-popup">
-                  <div className="p-5 min-w-80">
-                    <div className="flex justify-between items-start mb-4">
-                      <h3 className="font-semibold text-gray-900 text-lg pr-4">{business.name}</h3>
-                      <span className={`text-xs font-semibold px-3 py-1 rounded-full whitespace-nowrap ${
-                        business.lead_status === 'hot' ? 'bg-red-100 text-red-800' :
-                        business.lead_status === 'warm' ? 'bg-amber-100 text-amber-800' :
-                        'bg-gray-100 text-gray-800'
-                      }`}>
-                        {business.lead_status.toUpperCase()}
-                      </span>
+          {activeTab === 'outreach' ? (
+            <div className={`h-full flex items-center justify-center ${
+              theme === 'dark' ? 'bg-zinc-900' : 'bg-gray-50'
+            }`}>
+              <div className="text-center max-w-lg">
+                <div className="text-6xl mb-6">🚀</div>
+                <h2 className={`text-2xl font-bold mb-4 ${
+                  theme === 'dark' ? 'text-white' : 'text-gray-900'
+                }`}>
+                  Outreach Automation Center
+                </h2>
+                <p className={`text-lg mb-6 ${
+                  theme === 'dark' ? 'text-zinc-400' : 'text-gray-600'
+                }`}>
+                  Launch automated email, Instagram DM, and AI voice campaigns to your saved leads
+                </p>
+                <div className={`text-sm px-4 py-2 rounded-full inline-block ${
+                  theme === 'dark' ? 'bg-zinc-700 text-zinc-300' : 'bg-gray-100 text-gray-600'
+                }`}>
+                  🎯 Ready to launch when API keys are connected
+                </div>
+              </div>
+            </div>
+          ) : (
+            <MapContainer
+              center={[37.7749, -122.4194]}
+              zoom={10}
+              className="h-full w-full"
+            >
+              <TileLayer
+                url={theme === 'dark' 
+                  ? "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+                  : "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                }
+                attribution={theme === 'dark' 
+                  ? '&copy; <a href="https://carto.com/">CARTO</a>'
+                  : '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                }
+              />
+              
+              {searchLocation && <MapController searchLocation={searchLocation} />}
+              
+              {filteredBusinesses.map(business => (
+                <Marker
+                  key={business.id}
+                  position={[business.lat, business.lon]}
+                  icon={getLeadIcon(business.lead_status)}
+                >
+                  <Popup className="custom-popup">
+                    <div className="p-5 min-w-80">
+                      <div className="flex justify-between items-start mb-4">
+                        <h3 className="font-semibold text-gray-900 text-lg pr-4">{business.name}</h3>
+                        <span className={`text-xs font-semibold px-3 py-1 rounded-full whitespace-nowrap ${
+                          business.lead_status === 'hot' ? 'bg-red-100 text-red-800' :
+                          business.lead_status === 'warm' ? 'bg-amber-100 text-amber-800' :
+                          'bg-gray-100 text-gray-800'
+                        }`}>
+                          {business.lead_status.toUpperCase()}
+                        </span>
+                      </div>
+                      
+                      <div className="space-y-2 text-sm text-gray-700 mb-4">
+                        <p><span className="font-medium">Industry:</span> <span className="capitalize">{business.business_type}</span></p>
+                        <p><span className="font-medium">Address:</span> {business.address}</p>
+                        {business.phone && (
+                          <p><span className="font-medium">Phone:</span> 
+                            <a href={`tel:${business.phone}`} className="text-gray-900 font-medium ml-1 hover:underline">
+                              {business.phone}
+                            </a>
+                          </p>
+                        )}
+                        {business.website && (
+                          <p><span className="font-medium">Website:</span> 
+                            <a href={business.website} target="_blank" rel="noopener noreferrer" className="text-gray-900 font-medium ml-1 hover:underline">
+                              Visit Site
+                            </a>
+                          </p>
+                        )}
+                        {business.email && (
+                          <p><span className="font-medium">Email:</span> 
+                            <a href={`mailto:${business.email}`} className="text-gray-900 font-medium ml-1 hover:underline">
+                              {business.email}
+                            </a>
+                          </p>
+                        )}
+                      </div>
+                      
+                      <div className="flex justify-between items-center pt-4 border-t border-gray-200">
+                        <span className={`text-sm font-semibold ${getQualityColor(business.quality_score)}`}>
+                          Score: {business.quality_score}/100
+                        </span>
+                        <button
+                          onClick={() => addToFavorites(business)}
+                          className="px-4 py-2 bg-gray-700 text-white rounded-lg text-sm font-medium hover:bg-gray-800 transition-all duration-200 hover:scale-105"
+                        >
+                          Save Lead
+                        </button>
+                      </div>
                     </div>
-                    
-                    <div className="space-y-2 text-sm text-gray-700 mb-4">
-                      <p><span className="font-medium">Industry:</span> <span className="capitalize">{business.business_type}</span></p>
-                      <p><span className="font-medium">Address:</span> {business.address}</p>
-                      {business.phone && (
-                        <p><span className="font-medium">Phone:</span> 
-                          <a href={`tel:${business.phone}`} className="text-gray-900 font-medium ml-1 hover:underline">
-                            {business.phone}
-                          </a>
-                        </p>
-                      )}
-                      {business.website && (
-                        <p><span className="font-medium">Website:</span> 
-                          <a href={business.website} target="_blank" rel="noopener noreferrer" className="text-gray-900 font-medium ml-1 hover:underline">
-                            Visit Site
-                          </a>
-                        </p>
-                      )}
-                      {business.email && (
-                        <p><span className="font-medium">Email:</span> 
-                          <a href={`mailto:${business.email}`} className="text-gray-900 font-medium ml-1 hover:underline">
-                            {business.email}
-                          </a>
-                        </p>
-                      )}
-                    </div>
-                    
-                    <div className="flex justify-between items-center pt-4 border-t border-gray-200">
-                      <span className={`text-sm font-semibold ${getQualityColor(business.quality_score)}`}>
-                        Score: {business.quality_score}/100
-                      </span>
-                      <button
-                        onClick={() => addToFavorites(business)}
-                        className="px-4 py-2 bg-gray-700 text-white rounded-lg text-sm font-medium hover:bg-gray-800 transition-all duration-200 hover:scale-105"
-                      >
-                        Save Lead
-                      </button>
-                    </div>
-                  </div>
-                </Popup>
-              </Marker>
-            ))}
-          </MapContainer>
+                  </Popup>
+                </Marker>
+              ))}
+            </MapContainer>
+          )}
           
-          {/* Results Stats */}
-          {businesses.length > 0 && (
+          {/* Results Stats - Only show on search tab */}
+          {businesses.length > 0 && activeTab === 'search' && (
             <div className={`absolute top-6 right-6 rounded-lg shadow-lg border p-5 max-w-sm fade-in transition-all duration-300 ${
               theme === 'dark'
                 ? 'bg-zinc-800 border-zinc-600'
